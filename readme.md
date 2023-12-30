@@ -8,11 +8,12 @@ Be careful, it's a just-for-fun project and not thoroughly tested. No guaranty o
 
 # Config
 
-Here you can edit currency that you want to use (now supports only RUB, USD, EUR), also you can configure delta with amount of money and item price
+Here you can edit currency that you want to use (now supports only RUB, USD, EUR), also you can configure delta with amount of money and item price, and change the selection in algorithm
 ```
 {
     "currency": "RUB", 
-    "delta": 0.05
+    "delta": 0.05,
+    "selection": 5
 }
 ```
 # TODO

@@ -2,9 +2,9 @@ import json
 import os
 
 CONFIG_FILE = 'config.json'
-CONFIG_TEMPLATE = {'currency': 'RUB', 'delta': 0.05}
+CONFIG_TEMPLATE = {'currency': 'RUB', 'delta': 0.05, 'selection': 5}
 ASCII_FILE = 'ascii'
-CREDITS = '\n\n  Commit #1 | Version 1.0 | Made by fadegor05\n'
+CREDITS = '\n\n  Commit #4 | Version 1.1 | Made by fadegor05\n'
 
 class ConfigParser:
     def __init__(self) -> None:
@@ -27,7 +27,7 @@ class ConfigParser:
         with open(CONFIG_FILE, 'r') as file:
             data = json.load(file)
         return data
-    
+
     def getASCII(self) -> str:
         return self.parsedASCII
     
@@ -39,3 +39,6 @@ class ConfigParser:
 
     def getDelta(self) -> float:
         return self.parsedData['delta']
+    
+    def getSelection(self) -> int:
+        return self.parsedData['selection']

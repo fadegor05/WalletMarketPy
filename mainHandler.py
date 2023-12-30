@@ -2,10 +2,11 @@ from marketsAPI import getItem, getItemList
 import statistics
 
 class MainHandler:
-    def __init__(self, amount : int, delta : float, currency : str) -> None:
+    def __init__(self, amount : int, delta : float, currency : str, selection : int) -> None:
         self.amount = amount
         self.delta = delta
         self.currency = currency
+        self.selection = selection
         self.amounts = {'min': self.amount * (1 - self.delta), 'max': self.amount * (1 + self.delta)}
 
         self.itemList = getItemList(currency=self.currency)
@@ -29,7 +30,7 @@ class MainHandler:
                 items[volume].append(item)
             else:
                 items[volume] = [item]
-        return items[max(items)]
+        return [items.pop(max(items))[0] for i in range(self.selection)]
     
     def getSteamItemPrice(self, itemName : str) -> float:
         steamItem = getItem(itemName, self.currency)
@@ -43,13 +44,15 @@ class MainHandler:
         items = list()
         for item in itemList:
             steamPrice = self.getSteamItemPrice(item['market_hash_name'])
+            itemProfit = round(steamPrice - float(item['price']), 2)
             itemOut = {
                 'name': item['market_hash_name'],
                 'marketPrice': item['price'],
                 'steamPrice': round(steamPrice, 2),
-                'profit': round(steamPrice - float(item['price']), 2)
-             }
-            items.append(itemOut)
+                'profit': itemProfit
+            }
+            if itemProfit > 0:
+                items.append(itemOut)
         return items
     
     def printOutItemList(self, itemList : list) -> None:
@@ -58,3 +61,4 @@ class MainHandler:
             print(f'  • CS:GO Market Price: ', item['marketPrice'], self.currency)
             print(f'  • Steam Price (SELL): ~', item['steamPrice'], self.currency)
             print(f'  • Profit: ~', item['profit'], self.currency)
+            print('')

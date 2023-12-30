@@ -13,7 +13,8 @@ class App:
         print(self.configParser.getASCII(), self.configParser.getCredits())
         self.mainHandler = MainHandler(self.getAmount(), 
                                        self.configParser.getDelta(),
-                                       self.configParser.getCurrency())
+                                       self.configParser.getCurrency(),
+                                       self.configParser.getSelection())
 
     def getAmount(self) -> int:
         while True:
